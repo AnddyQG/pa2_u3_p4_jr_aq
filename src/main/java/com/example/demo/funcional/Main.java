@@ -182,17 +182,68 @@ public class Main {
 		});
 		listaCamb2.forEach(x -> LOG.info("" + x));
 		
-		
+		LOG.info("TAREA 17");
 		//metodos referenciados 
 		//1. supllier
+		
+		// 1. Clase
+		IPersonaSupplier<String> supplierHO2 = new PersonaSupplierImpl();
+		highOrder.metodo(supplierHO2);
+
+		// 2. Lambdas
+		highOrder.metodo(() -> "1234HO");
+		//3.Referenciados
 		highOrder.metodo(MetodosReferenciados::getIdHO);
+		
+		
 		//2.Consumer
+		// 1. Clase
+		LOG.info("Consumer Clase");
+		IPersonaConsumer<String> consumerHO2 = new PersonaConsumerImpl();
+		highOrder.metodoCons(consumerHO2, "Clase consumer");
+		// 2. Lambdas
+		LOG.info("Consummer Lambdas");
+		highOrder.metodoCons(cadena -> LOG.info(cadena), "Lambdas Consumer");
+		//3.Referenciados
+		LOG.info("Consumer Referenciados");
 		highOrder.metodoCons(MetodosReferenciados::aceptar, "Metodos referenciados Consumer");
+		
+		
 		//3.Predicate
+		//1.Clases
+		LOG.info("Predicate Clases");
+		IPersonaPredicate<Integer>predicate= new PersonaPredicaImpl();
+		highOrder.metodoPred(predicate, 7);
+		//2.Lambdas
+		LOG.info("Lambdas Predicate");
+		Integer x=6;
+		highOrder.metodoPred(n -> n.compareTo(x)==0 , x);
+		//3.Referenciados
+		LOG.info("Refrenciados Predicate");
 		highOrder.metodoPred(MetodosReferenciados::evaluar,6);
+		
+		
 		//4.Function
+		LOG.info("Clases Function");
+		IPersonaFunction<String, Integer>function3= new PersonaFunctionImpl();
+		highOrder.metodoFunc(function3, 2);
+		LOG.info("Lambdas Function");
+		highOrder.metodoFunc(val -> val.toString().concat(" Lambda") , x);
+		LOG.info("Referenciados Function");
 		highOrder.metodoFunc(MetodosReferenciados::aplicar, 6);
+		
+		
 		//5.UnaryOperator
+		
+		LOG.info("Clases Unary Operator");
+		IPersonaUnary<Double>unary4= new PersonaUnaryImpl();
+		highOrder.metodoUnary(unary4, 8.6);
+		
+		LOG.info("Lambdas Unary Operator");
+		Double y=8.6;
+		highOrder.metodoUnary(dou->y*0.3, y);
+		
+		LOG.info("Refeernciados Unary Operator");
 		highOrder.metodoUnary(MetodosReferenciados::aplicar, 8.6);
 	}
 	
